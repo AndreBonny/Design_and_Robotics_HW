@@ -63,7 +63,7 @@ public class Client {
         System.out.println("Starting device discovery...");
         agent.startInquiry(DiscoveryAgent.GIAC, new DeviceDiscoveredLoggingCallback());
 
-        // Very basic synchronization mechanism.
+        // Wait for the thread to finish the search
         synchronized (Client.class) {
             Client.class.wait();
         }
@@ -90,7 +90,8 @@ public class Client {
         InputStreamReader isr = new InputStreamReader(System.in);
         BufferedReader reader = new BufferedReader(isr);
 
-        // Starts the listening service for incoming messages.
+        // Starts the listening service for incoming messages, this will only run on a single thread
+        // right now the server will send only "ACK" or "EOF"
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.submit(new IncomingMessagesLoggingRunnable(connection));
 

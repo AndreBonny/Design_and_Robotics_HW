@@ -69,7 +69,7 @@ public class DeviceDiscoveredLoggingCallback implements DiscoveryListener {
         // Logs the end of the device discovery.
         System.out.println("Device discovery completed!");
 
-        // Very basic synchronization mechanism.
+        // Notify the main thread that the search has ended
         synchronized (Client.class) {
             Client.class.notify();
         }

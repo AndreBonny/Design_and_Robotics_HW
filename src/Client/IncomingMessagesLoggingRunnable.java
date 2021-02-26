@@ -72,16 +72,15 @@ public class IncomingMessagesLoggingRunnable implements Runnable {
             return;
         }
 
-        // Main loop of the program: reads a string incoming from the
-        // Bluetooth connection and prints it.
+        // Main loop of the thread, reads incoming message
+        // and prints it.
         while (true) {
             byte buffer[] = new byte[1024];
             int bytesRead;
             try {
                 bytesRead = input.read(buffer);
                 String incomingMessage = new String(buffer, 0, bytesRead);
-                System.out.println("[" + device.getFriendlyName(false) + " - " + device.getBluetoothAddress() + "]: "
-                        + incomingMessage);
+                System.out.println("[" + device.getFriendlyName(false) + " - " + device.getBluetoothAddress() + "]: "+ incomingMessage);
             } catch (IOException e) {
                 // Don't rethrow this exception so if one message is lost, the
                 // service continues listening.
