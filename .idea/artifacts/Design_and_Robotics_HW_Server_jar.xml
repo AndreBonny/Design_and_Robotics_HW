@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Design_and_Robotics_HW_Server:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Design_and_Robotics_HW_Server_jar</output-path>
+    <root id="archive" name="Design_and_Robotics_HW.jar">
+      <element id="module-output" name="Design_and_Robotics_HW" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/ultreia/bluecove/2.1.1/bluecove-2.1.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

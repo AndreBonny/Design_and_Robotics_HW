@@ -46,15 +46,18 @@ public class Server {
 
         ConnectionState connectionState = ConnectionState.getInstance();
         InputStream input = streamConnection.openInputStream();
-        BufferedReader inBuffer = new BufferedReader(new InputStreamReader(input));
-        String inMessage;
+        OutputStream output =  streamConnection.openOutputStream();
+
         int messageCount = 0;
 
+        System.out.println("Starting to listen...");
         // Main loop
         while (connectionState.isAlive())
         {
-            inMessage = inBuffer.readLine();
-            executor.execute(new MessageReceiver(messageCount, inMessage, streamConnection));
+            byte buffer[] = new byte[1024];
+            int bytes_read = input.read( buffer );
+            String received = new String(buffer, 0, bytes_read);
+            executor.execute(new MessageReceiver(messageCount, received, streamConnection,output));
             messageCount++;
         }
 
@@ -63,8 +66,12 @@ public class Server {
 
     }
 
-
-    public static void main(String[] args) throws IOException {
+    /**
+     * Main class of the Server, it will display some info on the device it is run on.
+     * It will then start the server
+     * @param args standard command line input
+     */
+    public static void main(String[] args){
         try {
             //display local device address and name
             LocalDevice localDevice = LocalDevice.getLocalDevice();
